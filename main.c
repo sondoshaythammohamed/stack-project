@@ -83,7 +83,6 @@ push(s,'.');
 push(s,'1');
 
 display(s);
-pop(s);
-printf("%c",peak(s));
+
     return 0;
 }
