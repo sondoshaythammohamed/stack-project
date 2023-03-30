@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct
+{
+    float data;
+    struct Node *next;
+} Node;
+typedef struct
+{
+    Node *top;
+} Stack;
+Node *newNode (float x)
+{
+    Node *n = malloc(sizeof(Node));
+    n->data = x;
+    n->next = NULL;
+    return n;
+}
+Stack * initialize ()
+{
+    Stack *s = malloc(sizeof(Stack));
+    s->top = NULL;
+    return s;
+}
+void push (Stack *s , float x)
+{
+    Node *p = newNode(x);
+    p->next = s->top;
+    s->top = p;
+}
+float pop (Stack *s)
+{
+    if(s->top == NULL)
+    {
+        printf("Stack is Empty!");
+        return;
+    }
+    Node *p = s->top;
+    float data = p->data;
+    s->top = p->next;
+    free(p);
+    return data;
+}
+float peak (Stack *s)
+{
+
+    if(s->top == NULL)
+    {
+        printf("Stack is Empty!");
+        return;
+    }
+    else return s->top->data;
+}
+int isEmpty (Stack *s)
+{
+    if(s->top == NULL)
+        return 1;
+    else return 0;
+}
+void display (Stack *s)
+{
+    Stack *copy = initialize();
+    while (!isEmpty(s))
+    {
+        float x = pop(s);
+        printf("%.2f ",x);
+        push(copy,x);
+    }
+    while(!isEmpty(copy))
+        push(s,pop(copy));
+}
+int main()
+{
+Stack *s = initialize();
+push(s,2);
+push(s,'+');
+push(s,1.5);
+
+display(s);
+    return 0;
+}
